@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Feedback & Rating</title>
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #e0f7fa;  /* Light teal background */
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .feedback-container {
+      background: linear-gradient(135deg, #a7c5e8, #d1c6e5);  /* Soft pastel blue to lavender gradient */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;  /* Smaller width */
+      color: #333;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feedback-container:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .feedback-container h2 {
+      margin-bottom: 15px;
+      font-size: 28px;  /* Smaller font size */
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #3a7ca5;  /* Soft teal for the title */
+    }
+
+    .feedback-container p {
+      font-size: 16px;  /* Smaller font size */
+      margin-bottom: 20px;
+      line-height: 1.4;
+      color: #5d6b7d;  /* Muted lavender-gray for description */
+    }
+
+    /* Rating Stars */
+    .stars {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+      gap: 8px;
+    }
+
+    .star {
+      font-size: 30px;  /* Smaller stars */
+      color: #e9f543;  /* Soft pastel teal for stars */
+      cursor: pointer;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .star:hover {
+      transform: scale(1.2);
+      color: #ebee37;  /* Slightly deeper teal when hovered */
+    }
+
+    /* Feedback Form */
+    .feedback-form {
+      margin-top: 15px;
+    }
+
+    .feedback-form input, .feedback-form textarea {
+      width: 100%;
+      padding: 12px;  /* Smaller padding */
+      margin-bottom: 12px;
+      border: none;
+      border-radius: 8px;  /* Slightly smaller border radius */
+      font-size: 14px;  /* Smaller font size */
+      background-color: #ffffff;  /* White background for input fields */
+      color: #333;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .feedback-form input:focus, .feedback-form textarea:focus {
+      box-shadow: 0 0 10px rgba(102, 199, 255, 0.7);  /* Light blue focus effect */
+      outline: none;
+    }
+
+    .feedback-form button {
+      padding: 12px 28px;  /* Smaller button */
+      border: none;
+      background-color: #66c4c2;  /* Soft teal for the button */
+      color: white;
+      cursor: pointer;
+      border-radius: 25px;
+      font-size: 16px;  /* Smaller font size */
+      width: 100%;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .feedback-form button:hover {
+      background-color: #4db6b6;  /* Slightly darker teal on hover */
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #2d2d2d;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;  /* Smaller footer text */
+    }
+
+  </style>
+</head>
+<body>
+  <div class="feedback-container">
+    <h2>We'd love your feedback!</h2>
+    <p>Help us improve by rating our service and leaving your feedback.</p>
+
+    <!-- Rating Stars -->
+    <div class="stars">
+      <span class="star" data-rating="1">★</span>
+      <span class="star" data-rating="2">★</span>
+      <span class="star" data-rating="3">★</span>
+      <span class="star" data-rating="4">★</span>
+      <span class="star" data-rating="5">★</span>
+    </div>
+
+    <form class="feedback-form" id="feedbackForm">
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+      <textarea id="message" name="message" rows="4" placeholder="Your Feedback" required></textarea>
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 FeedbackPortal | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // Rating System
+    let rating = 0;
+    const stars = document.querySelectorAll(".star");
+
+    stars.forEach((star, index) => {
+      star.addEventListener("click", () => {
+        rating = index + 1;
+        stars.forEach((s, i) => {
+          if (i < rating) {
+            s.style.color = "#66c4c2";  // Active star color (darker teal)
+          } else {
+            s.style.color = "#a8d8d8";  // Inactive star color (pastel teal)
+          }
+        });
+      });
+    });
+
+    // Feedback form submission handler
+    const feedbackForm = document.getElementById("feedbackForm");
+
+    feedbackForm.addEventListener("submit", (event) => {
+      event.preventDefault();  // Prevents the default form submission behavior
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+
+      if (name && email && message && rating > 0) {
+        alert(`Thank you for your feedback, ${name}!\nRating: ${rating} stars`);
+        feedbackForm.reset(); // Clear the form after submission
+        stars.forEach((s) => s.style.color = "#a8d8d8"); // Reset the star colors
+      } else {
+        alert("Please fill in all fields and give a rating before submitting.");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eeebf3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            flex-wrap: wrap;
+            max-width: 800px;
+        }
+
+        .contact-info {
+            background: #123456;
+            color: white;
+            padding: 30px;
+            width: 300px;
+        }
+
+        .contact-info h3 {
+            margin-top: 0;
+        }
+
+        .contact-info ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .contact-info ul li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info ul li i {
+            margin-right: 10px;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .form-container {
+            padding: 30px;
+            width: 400px;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .form-container h3 {
+            margin-top: 0;
+        }
+
+        .form-container input,
+        .form-container textarea,
+        .form-container button {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-container button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-info {
+                width: 100%;
+                text-align: center;
+            }
+
+            .form-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <ul>
+                <li><i>📍</i>Chh.Sambhajinagar,Maharashtra </li>
+                <li><i>✉️</i>DriveAgain@gmail.com</li>
+                <li><i>💼</i>Alex</li>
+                <li><i>📞</i>+33619301144</li>
+            </ul>
+            <a href="#">Twitter</a> | 
+            <a href="#">LinkedIn</a>
+        </div>
+        <div class="form-container">
+            <h3>Get in Touch</h3>
+            <form>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Message" rows="5" required></textarea>
+                <button type="submit">SEND</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

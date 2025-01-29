@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://source.unsplash.com/1600x900/?nature,abstract') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+
+        .container {
+            width: 450px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.5);
+            animation: slideIn 1s ease-in-out;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .setting-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .setting-option label {
+            font-size: 16px;
+        }
+
+        .setting-option input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+            appearance: none;
+            background: #2c3e50;
+            border-radius: 50%;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s ease;
+        }
+
+        .setting-option input[type="checkbox"]:checked {
+            background: #4caf50;
+            transform: scale(1.2);
+        }
+
+        .setting-option input[type="checkbox"]:checked::before {
+            content: '✓';
+            color: white;
+            font-size: 18px;
+            position: absolute;
+            left: 6px;
+            top: -2px;
+        }
+
+        .setting-option input[type="checkbox"]:not(:checked) {
+            background: #34495e;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(45deg, #4caf50, #2d3e2d);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: -200%;
+            left: -200%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(135deg, #4caf50, #2d3e2d);
+            transition: all 0.5s;
+            z-index: 0;
+        }
+
+        .btn:hover {
+            background: #45a049;
+            transform: translateY(-4px);
+        }
+
+        .btn:hover:before {
+            top: 0;
+            left: 0;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Notification Settings</h2>
+    <div class="setting-option">
+        <label for="email-notifications">Email Notifications</label>
+        <input type="checkbox" id="email-notifications" checked>
+    </div>
+    <div class="setting-option">
+        <label for="sms-notifications">SMS Notifications</label>
+        <input type="checkbox" id="sms-notifications">
+    </div>
+    <div class="setting-option">
+        <label for="push-notifications">Push Notifications</label>
+        <input type="checkbox" id="push-notifications" checked>
+    </div>
+    <button class="btn" onclick="saveSettings()">Save Settings</button>
+</div>
+
+<script>
+    // Function to save the settings
+    function saveSettings() {
+        const emailNotifications = document.getElementById("email-notifications").checked;
+        const smsNotifications = document.getElementById("sms-notifications").checked;
+        const pushNotifications = document.getElementById("push-notifications").checked;
+
+        // Log settings to the console (you can save these to a database instead)
+        console.log("Email Notifications:", emailNotifications);
+        console.log("SMS Notifications:", smsNotifications);
+        console.log("Push Notifications:", pushNotifications);
+
+        // Display a success message
+        alert("Settings saved successfully!");
+    }
+</script>
+
+</body>
+</html>

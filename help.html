@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help Center</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .help-center-container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .faq-section {
+      margin-top: 20px;
+    }
+
+    /* FAQ Item Styles */
+    .faq-item {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    .faq-item .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      color: #555;
+      cursor: pointer;
+      padding: 10px 0;
+    }
+
+    .faq-item .faq-question:hover {
+      color: #007bff;
+    }
+
+    .faq-item .faq-answer {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+      display: none; /* Initially hidden */
+    }
+
+    /* Arrow Styles */
+    .faq-item .arrow {
+      font-size: 16px;
+      color: #555;
+      transition: transform 0.3s ease;
+    }
+
+    /* Rotate arrow when active */
+    .faq-item.active .arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Show answer when active */
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="help-center-container">
+    <h1>Help Center</h1>
+    <p>If you have any questions, check out the FAQs below. If you need more help, feel free to contact us!</p>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How do I list a vehicle for sale?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          To list a vehicle, go to the "Sell Vehicle" page, fill in the required details (make, model, price, etc.), upload high-quality images, and submit. Your listing will be reviewed and published.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How can I contact a seller?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          You can contact a seller by visiting the vehicle's detail page and clicking the "Contact Seller" button. You can message them directly or use the provided contact details.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Are there any fees for listing a vehicle?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          Basic listings are free. However, premium features like featured ads or highlighted listings may have additional costs. Check the "Pricing" section for more details.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How do I report a fraudulent listing?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          If you suspect a listing is fraudulent, click the "Report" button on the listing page or contact our support team with details.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Can I edit my listing after publishing?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          Yes, you can edit your listing anytime by visiting your account dashboard, selecting the listing, and clicking "Edit."
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>How do I reset my password?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          Go to the "Login" page and click on "Forgot Password." Enter your registered email, and we'll send you instructions to reset your password.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript for FAQ Toggle
+    document.querySelectorAll('.faq-item .faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const parent = question.parentElement;
+        parent.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>
