@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sell Your Car or Bike</title>
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+    .container {
+      width: 90%;
+      max-width: 500px;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeIn 0.8s ease-in-out forwards;
+    }
+    h1, h2 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .form-group label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    }
+    button:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+    }
+    .hidden {
+      display: none;
+    }
+    .error {
+      color: red;
+      display: none;
+      font-size: 14px;
+    }
+    .image-preview {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      gap: 10px;
+    }
+    .image-preview img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 5px;
+      border: 2px solid #ddd;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    h1 {
+      font-size: 24px;
+      margin-top: 15px;
+      animation: slideIn 1s ease-in-out;
+    }
+    /* Button Group Styling for category selection */
+    #sellSection button {
+      margin: 5px;
+      width: 45%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Login Section -->
+    <div id="loginSection">
+      <h1>Sell Your Car or Bike</h1>
+      <h2>Login</h2>
+      <div class="form-group">
+        <label for="userInput">Enter Mobile Number or Email</label>
+        <input type="text" id="userInput" placeholder="Enter mobile number or email" />
+      </div>
+      <div id="loginError" class="error">Invalid mobile number or email!</div>
+      <button onclick="verifyLogin()">Login</button>
+    </div>
+
+    <!-- Category Selection -->
+    <div id="sellSection" class="hidden">
+      <h2>What do you want to sell?</h2>
+      <button onclick="chooseCategory('Car')">Sell Car</button>
+      <button onclick="chooseCategory('Bike')">Sell Bike</button>
+    </div>
+
+    <!-- Form Section -->
+    <div id="formSection" class="hidden">
+      <h2 id="formTitle">Sell Your Vehicle</h2>
+      <div class="form-group">
+        <label for="brand">Brand</label>
+        <select id="brand">
+          <!-- Options will be populated dynamically -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="model">Model</label>
+        <input type="text" id="model" placeholder="Enter model" />
+      </div>
+      <div class="form-group">
+        <label for="year">Year of Manufacture</label>
+        <input type="number" id="year" min="1990" max="2024" placeholder="Enter year" />
+      </div>
+      <div class="form-group">
+        <label for="fuel">Fuel Type</label>
+        <select id="fuel">
+          <!-- Options will be populated dynamically -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mileage">Mileage (KM)</label>
+        <input type="number" id="mileage" placeholder="Enter mileage" />
+      </div>
+      <div class="form-group">
+        <label for="bodyType">Body Type</label>
+        <select id="bodyType">
+          <!-- Options will be populated dynamically -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="color">Color</label>
+        <input type="text" id="color" placeholder="Enter color" />
+      </div>
+      <div class="form-group">
+        <label for="uploadImage">Upload Images</label>
+        <input type="file" id="uploadImage" multiple accept="image/*" />
+        <div class="image-preview" id="imagePreview"></div>
+      </div>
+      <button onclick="submitDetails()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    // Options for cars
+    const carBrands = ["Toyota", "Honda", "Ford", "BMW", "Audi", "Suzuki"];
+    const carFuelTypes = ["Petrol", "Diesel", "Electric"];
+    const carBodyTypes = ["Sedan", "SUV", "Hatchback", "Coupe", "Convertible"];
+
+    // Options for bikes
+    const bikeBrands = ["Yamaha", "Honda", "Ducati", "Harley-Davidson", "KTM"];
+    const bikeFuelTypes = ["Petrol", "Electric"];
+    const bikeBodyTypes = ["Cruiser", "Sport", "Touring", "Standard", "Dirt"];
+
+    let currentCategory = "";
+
+    function verifyLogin() {
+      const userInput = document.getElementById("userInput").value.trim();
+      if (
+        !/^\d{10}$/.test(userInput) &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userInput)
+      ) {
+        document.getElementById("loginError").style.display = "block";
+        return;
+      }
+      document.getElementById("loginSection").classList.add("hidden");
+      document.getElementById("sellSection").classList.remove("hidden");
+    }
+
+    function chooseCategory(category) {
+      currentCategory = category;
+      document.getElementById("sellSection").classList.add("hidden");
+      document.getElementById("formSection").classList.remove("hidden");
+      document.getElementById("formTitle").innerText = `Sell Your ${category}`;
+      populateFormOptions(category);
+    }
+
+    function populateFormOptions(category) {
+      // Populate Brand dropdown
+      const brandSelect = document.getElementById("brand");
+      brandSelect.innerHTML = "";
+      const brands = category === "Car" ? carBrands : bikeBrands;
+      brands.forEach(brand => {
+        let option = document.createElement("option");
+        option.value = brand;
+        option.textContent = brand;
+        brandSelect.appendChild(option);
+      });
+
+      // Populate Fuel Type dropdown
+      const fuelSelect = document.getElementById("fuel");
+      fuelSelect.innerHTML = "";
+      const fuels = category === "Car" ? carFuelTypes : bikeFuelTypes;
+      fuels.forEach(fuel => {
+        let option = document.createElement("option");
+        option.value = fuel;
+        option.textContent = fuel;
+        fuelSelect.appendChild(option);
+      });
+
+      // Populate Body Type dropdown
+      const bodyTypeSelect = document.getElementById("bodyType");
+      bodyTypeSelect.innerHTML = "";
+      const bodyTypes = category === "Car" ? carBodyTypes : bikeBodyTypes;
+      bodyTypes.forEach(type => {
+        let option = document.createElement("option");
+        option.value = type;
+        option.textContent = type;
+        bodyTypeSelect.appendChild(option);
+      });
+    }
+
+
+       // Image Preview Handler
+       document
+      .getElementById("uploadImage")
+      .addEventListener("change", function (event) {
+        const preview = document.getElementById("imagePreview");
+        preview.innerHTML = "";
+        Array.from(event.target.files).forEach(file => {
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(file);
+          img.onload = function () {
+            URL.revokeObjectURL(img.src); // Free memory
+          };
+          preview.appendChild(img);
+        });
+      });
+
+    function submitDetails() {
+      alert("Details submitted successfully!");
+    }
+  </script>
+</body>
+</html>
